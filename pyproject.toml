@@ -1,0 +1,38 @@
+[project]
+name = "easy-tts-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ipywidgets>=8.1.7",
+    "jupyterlab>=4.4.3",
+    "kokoro>=0.9.4",
+    "misaki[zh]>=0.9.4",
+    "pip>=25.1.1",
+    "sounddevice>=0.5.2",
+    "soundfile>=0.13.1",
+    "spacy>=3.7.0",
+    "lingua-language-detector>=2.0.0",
+    "pytest>=8.0.0",
+    "openai>=1.84.0",
+    "python-dotenv>=1.1.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--tb=short",
+    "--strict-markers",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+
+[tool.uv]
+dev-dependencies = []
