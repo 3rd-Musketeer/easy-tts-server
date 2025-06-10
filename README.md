@@ -1,6 +1,6 @@
 # Easy TTS Server
 
-[![Test Suite](https://github.com/3rd-Musketeer/easy_tts_server/workflows/Test%20Suite/badge.svg)](https://github.com/3rd-Musketeer/easy_tts_server/actions)
+[![Test Suite](https://github.com/3rd-Musketeer/easy-tts-server/workflows/Test%20Suite/badge.svg)](https://github.com/3rd-Musketeer/easy-tts-server/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -24,18 +24,18 @@ Install directly from GitHub (recommended):
 
 ```bash
 # Using pip
-pip install git+https://github.com/3rd-Musketeer/easy_tts_server.git
+pip install git+https://github.com/3rd-Musketeer/easy-tts-server.git
 
 # Or using uv (recommended for faster installs)
-uv add git+https://github.com/3rd-Musketeer/easy_tts_server.git
+uv add git+https://github.com/3rd-Musketeer/easy-tts-server.git
 ```
 
 Alternatively, for development or if you want to modify the code:
 
 ```bash
 # Clone the repository
-git clone https://github.com/3rd-Musketeer/easy_tts_server.git
-cd easy_tts_server
+git clone https://github.com/3rd-Musketeer/easy-tts-server.git
+cd easy-tts-server
 
 # Install using uv (recommended)
 uv sync
