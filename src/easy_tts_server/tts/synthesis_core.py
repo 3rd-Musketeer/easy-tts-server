@@ -106,7 +106,7 @@ class SynthesisCore:
         fade_out_samples = min(int(0.05 * self.sample_rate), len(audio) // 8)
         if fade_out_samples > 0:
             fade_out = np.linspace(1, 0, fade_out_samples)
-            audio[-fade_out_samples:] *= fade_out
+            audio[-int(fade_out_samples):] *= fade_out
 
         # Trim silence from beginning and end
         audio = self._trim_silence(audio)
@@ -131,8 +131,8 @@ class SynthesisCore:
             # If entire audio is silent, return a small portion
             return audio[: int(0.1 * self.sample_rate)]
 
-        first_sound = np.argmax(non_silent)
-        last_sound = len(audio) - np.argmax(non_silent[::-1]) - 1
+        first_sound = int(np.argmax(non_silent))
+        last_sound = int(len(audio) - np.argmax(non_silent[::-1]) - 1)
 
         # Keep a small padding around the sound
         padding = int(0.02 * self.sample_rate)  # 20ms padding

@@ -22,8 +22,8 @@ class TaskManager:
 
     def __init__(self, synthesis_core):
         self.synthesis_core = synthesis_core
-        self.task_queue = queue.Queue()
-        self.audio_queue = queue.Queue(maxsize=3)
+        self.task_queue: queue.Queue[SynthesisTask] = queue.Queue()
+        self.audio_queue: queue.Queue[np.ndarray] = queue.Queue(maxsize=3)
         self.cancel_flag = threading.Event()
         self.worker_thread = None
         self.task_counter = 0
