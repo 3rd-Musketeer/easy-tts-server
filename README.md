@@ -1,5 +1,9 @@
 # Easy TTS Server
 
+[![Test Suite](https://github.com/USERNAME/easy_tts_server/workflows/Test%20Suite/badge.svg)](https://github.com/USERNAME/easy_tts_server/actions)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A simple and efficient text-to-speech server with streaming capabilities, supporting both English and Chinese languages.
 
 ## ✨ Features
