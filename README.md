@@ -1,6 +1,6 @@
 # Easy TTS Server
 
-[![Test Suite](https://github.com/USERNAME/easy_tts_server/workflows/Test%20Suite/badge.svg)](https://github.com/USERNAME/easy_tts_server/actions)
+[![Test Suite](https://github.com/3rd-Musketeer/easy_tts_server/workflows/Test%20Suite/badge.svg)](https://github.com/3rd-Musketeer/easy_tts_server/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -20,12 +20,19 @@ A simple and efficient text-to-speech server with streaming capabilities, suppor
 
 ### Installation
 
+Since this package is not yet published to PyPI, install from source:
+
 ```bash
-# Using uv (recommended)
-uv add easy-tts-server
+# Clone the repository
+git clone https://github.com/3rd-Musketeer/easy_tts_server.git
+cd easy_tts_server
+
+# Install using uv (recommended)
+uv sync
+uv pip install -e .
 
 # Or using pip
-pip install easy-tts-server
+pip install -e .
 ```
 
 ### Dependencies
