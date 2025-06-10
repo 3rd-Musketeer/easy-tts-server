@@ -20,7 +20,17 @@ A simple and efficient text-to-speech server with streaming capabilities, suppor
 
 ### Installation
 
-Since this package is not yet published to PyPI, install from source:
+Install directly from GitHub (recommended):
+
+```bash
+# Using pip
+pip install git+https://github.com/3rd-Musketeer/easy_tts_server.git
+
+# Or using uv (recommended for faster installs)
+uv add git+https://github.com/3rd-Musketeer/easy_tts_server.git
+```
+
+Alternatively, for development or if you want to modify the code:
 
 ```bash
 # Clone the repository
