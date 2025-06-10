@@ -15,7 +15,7 @@ class TextSegmenter:
     def __init__(self):
         self.models = {}
         self.supported_languages = ["en", "zh"]
-        self.min_tokens = 5
+        self.min_tokens = 3
         self._load_models()
 
     def _load_models(self):

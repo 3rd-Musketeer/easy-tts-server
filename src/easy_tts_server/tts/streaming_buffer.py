@@ -3,7 +3,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 # Streaming configuration
-DETECTION_INTERVAL = 10
+DETECTION_INTERVAL = 5
 
 
 class StreamingBuffer:

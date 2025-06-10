@@ -1,6 +1,9 @@
 import re
 import unicodedata
 
+import markdown
+from bs4 import BeautifulSoup
+
 
 def has_chinese_characters(text: str) -> bool:
     """
@@ -22,13 +25,13 @@ def has_chinese_characters(text: str) -> bool:
 
 def normalize_text(text: str) -> str:
     """
-    Normalize text by removing markdown decorators while keeping the content.
+    Normalize text by parsing markdown and extracting clean text content.
 
     Args:
-        text: Input text to normalize
+        text: Input text to normalize (can contain markdown)
 
     Returns:
-        Normalized text with markdown decorators removed
+        Normalized text with markdown converted to plain text
     """
     if not text:
         return text
@@ -37,48 +40,44 @@ def normalize_text(text: str) -> str:
     # This handles composed/decomposed characters and ensures consistent representation
     normalized = unicodedata.normalize("NFC", text)
 
-    # Remove markdown decorators but keep the content
-    # Remove headers (# ## ###)
-    normalized = re.sub(r"^#{1,6}\s+", "", normalized, flags=re.MULTILINE)
+    try:
+        # Parse markdown to HTML using the markdown library
+        # This properly handles all markdown syntax including headers, lists, links, etc.
+        html = markdown.markdown(
+            normalized,
+            extensions=[
+                "tables",  # Support for tables
+                "fenced_code",  # Support for fenced code blocks
+                "toc",  # Table of contents
+                "sane_lists",  # Better list handling
+            ],
+        )
 
-    # Remove emphasis decorators (**bold**, *italic*, __bold__, _italic_)
-    normalized = re.sub(r"\*\*([^*]+)\*\*", r"\1", normalized)
-    normalized = re.sub(r"\*([^*]+)\*", r"\1", normalized)
-    normalized = re.sub(r"__([^_]+)__", r"\1", normalized)
-    normalized = re.sub(r"_([^_]+)_", r"\1", normalized)
+        # Use BeautifulSoup to extract clean text from HTML
+        soup = BeautifulSoup(html, "html.parser")
 
-    # Remove strikethrough ~~text~~
-    normalized = re.sub(r"~~([^~]+)~~", r"\1", normalized)
+        # Remove code blocks and inline code completely
+        for code_element in soup.find_all(["code", "pre"]):
+            code_element.decompose()
 
-    # Remove code blocks and inline code
-    normalized = re.sub(r"```[\s\S]*?```", "", normalized)
-    normalized = re.sub(r"`([^`]*)`", r"\1", normalized)
+        # Extract text content preserving structure
+        # Use separator='\n' for block elements to preserve line breaks
+        clean_text = soup.get_text(separator="\n", strip=True)
 
-    # Remove links but keep text [text](url) -> text
-    normalized = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", normalized)
+    except Exception:
+        # Fallback to original text if markdown parsing fails
+        clean_text = normalized
 
-    # Remove images ![alt](url)
-    normalized = re.sub(r"!\[[^\]]*\]\([^)]+\)", "", normalized)
+    # Basic cleanup while preserving structure
+    # Clean up excessive whitespace but preserve intentional line breaks
+    clean_text = re.sub(
+        r"[ \t]+", " ", clean_text
+    )  # Replace multiple spaces/tabs with single space
+    clean_text = re.sub(r" *\n *", "\n", clean_text)  # Clean spaces around newlines
+    clean_text = re.sub(r"\n{3,}", "\n\n", clean_text)  # Max 2 consecutive newlines
+    clean_text = clean_text.strip()
 
-    # Remove list markers (- * + and numbered lists)
-    normalized = re.sub(r"^[\s]*[-*+]\s+", "", normalized, flags=re.MULTILINE)
-    normalized = re.sub(r"^\s*\d+\.\s+", "", normalized, flags=re.MULTILINE)
-
-    # Remove blockquote markers (>)
-    normalized = re.sub(r"^\s*>\s*", "", normalized, flags=re.MULTILINE)
-
-    # Basic cleanup
-    # Preserve paragraph breaks (double newlines) but clean up excessive spacing
-    normalized = re.sub(
-        r"\n\s*\n\s*\n+", "\n\n", normalized
-    )  # Max 2 consecutive newlines
-    normalized = re.sub(
-        r"[ \t]+", " ", normalized
-    )  # Clean horizontal whitespace but keep \n
-    normalized = re.sub(r" *\n *", "\n", normalized)  # Clean spaces around newlines
-    normalized = normalized.strip()
-
-    return normalized
+    return clean_text
 
 
 def preprocess_text(text: str, language: str) -> tuple[str, str]:

@@ -17,6 +17,8 @@ dependencies = [
     "pytest>=8.0.0",
     "openai>=1.84.0",
     "python-dotenv>=1.1.0",
+    "markdown>=3.8",
+    "beautifulsoup4>=4.13.4",
 ]
 
 [tool.pytest.ini_options]
@@ -41,6 +43,8 @@ dev-dependencies = [
     "isort>=5.13.0",
     "mypy>=1.8.0",
     "pre-commit>=3.6.0",
+    "types-markdown>=3.8.0.20250415",
+    "types-beautifulsoup4>=4.12.0.20250516",
 ]
 
 [tool.ruff]
