@@ -7,14 +7,9 @@ This package provides:
 - Utility functions for language detection and audio processing
 """
 
-from .tts import TTSEngine, create_tts_engine
 from .segmenter import TextSegmenter, segment_text
+from .tts import TTSEngine, create_tts_engine
 
-__all__ = [
-    'TTSEngine',
-    'create_tts_engine', 
-    'TextSegmenter',
-    'segment_text'
-]
+__all__ = ["TTSEngine", "create_tts_engine", "TextSegmenter", "segment_text"]
 
-__version__ = '0.1.0' 
+__version__ = "0.1.0"

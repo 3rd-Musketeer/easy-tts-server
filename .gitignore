@@ -180,6 +180,12 @@ audio_test_output/
 # Debug files
 debug/
 
+# Development files
+llm_chat.py
+play.ipynb
+docs/
+.python-version
+
 # Model cache
 .cache/
 models/
@@ -191,6 +197,7 @@ temp/
 # IDE files
 .vscode/
 .idea/
+.cursor/
 
 # macOS
 .DS_Store
